@@ -39,7 +39,7 @@ app.listen(PORT, () => {
 app.get("/test", (req, res) => {
   try {
     const get = async function () {
-      const allTodos = await pool.query(
+      const allTodos = await client.query(
         "SELECT * FROM test"
       );
       res.json(allTodos.rows);
