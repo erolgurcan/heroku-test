@@ -32,10 +32,10 @@ app.listen(PORT, () => {
 });
 
 
-app.get("/test", async (req, res) => {
+app.get("/test", (req, res) => {
   try {
     console.log("test");
-    const allTodos = await pool.query("SELECT * FROM test;");
+    const allTodos =  pool.query("SELECT * FROM test;");
     res.json(allTodos.rows);
     console.log(allTodos.rows);
   } catch (err) {
