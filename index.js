@@ -27,6 +27,7 @@ const testFunction = function () {
       arr.push(JSON.stringify(row));
     };
     console.log(arr);
+    return arr;
   });
 };
 
@@ -40,8 +41,9 @@ app.listen(PORT, () => {
 
 app.get("/test", (req, res) => {
   try {
-    testFunction();
-    res.json("asd");
+    let arr = [];
+    arr = testFunction();
+    res.json(arr);
   } catch (error) {
     console.log(err.message);
   }
