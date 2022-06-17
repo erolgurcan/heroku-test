@@ -43,7 +43,7 @@ app.listen(PORT, () => {
 app.get("/test", (req, res) => {
   try {
     client.query("select * from test;", (err, response) => {
-      res.json(response);
+      res.json(response.rows);
     });
     console.log(response);
   } catch (error) {
