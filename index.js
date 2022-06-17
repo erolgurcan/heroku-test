@@ -22,7 +22,8 @@ client.connect();
 client.query("select * from test;", (err, res) => {
   if (err) throw err;
   for (let row of res.rows) {
-    console.log(JSON.stringify(row));
+    
+    console.log("..." + JSON.stringify(row));
   }
   client.end();
 });
@@ -35,16 +36,16 @@ app.listen(PORT, () => {
   console.log("Server started on port: " + PORT);
 });
 
-app.get("/test", (req, response) => {
+app.get("/test", (req, res) => {
   try {
-    client.query("select * from test;", (err, res) => {
-      for (let row of res.rows) {
-        console.log(JSON.stringify(row));
-        response.json(JSON.stringify(row));
-      }
-      client.end();
-    });
+    const get = async function () {
+      const allTodos = await pool.query(
+        "SELECT * FROM test"
+      );
+      res.json(allTodos.rows);
+    };
+    get();
   } catch (error) {
     console.log(err.message);
   }
-});
+})
