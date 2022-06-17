@@ -26,7 +26,7 @@ app.listen(PORT, () => {
 
 app.get("/test", async (req, res) => {
   try {
-    const allTodos = await pool.query("SELECT * FROM test");
+    const allTodos = await pool.query("SELECT * FROM test;");
     res.json(allTodos.rows);
   } catch (err) {
     console.error(err.message);
