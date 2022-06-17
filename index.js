@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const Pool = require("pg").Pool;
+// const Pool = require("pg").Pool;
 const path = require("path");
 require('dotenv').config()
 
@@ -24,22 +24,42 @@ console.log(process.env.PG_DATABASE);
 
 // // console.log(devConfig);
 
-const devConfig = `postgresql://${process.env.PG_USER}:${process.env.PG_PASSWORD}@${process.env.PG_HOST}:${process.env.PG_PORT}/${process.env.PG_DATABASE}`;
+// const devConfig = `postgresql://${process.env.PG_USER}:${process.env.PG_PASSWORD}@${process.env.PG_HOST}:${process.env.PG_PORT}/${process.env.PG_DATABASE}`;
 
-const pool = new Pool({
- devConfig,
-});
+// const pool = new Pool({
+//  devConfig,
+// });
 
-app.get("/test", async (req, res) => {
-    console.log("test");
-  try {
-    const test = await pool.query("SELECT * FROM test");
-    res.json(test.rows);
-  } catch (err) {
-    console.log(err.message);
-  }
-});
+// app.get("/test", async (req, res) => {
+//     console.log("test");
+//   try {
+//     const test = await pool.query("SELECT * FROM test");
+//     res.json(test.rows);
+//   } catch (err) {
+//     console.log(err.message);
+//   }
+// });
 
 app.listen(PORT, () => {
   console.log("Server started on port: " + PORT);
+});
+
+
+const { Client } = require('pg');
+
+const client = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
+
+client.connect();
+
+client.query('SELECT * FROM test;', (err, res) => {
+  if (err) throw err;
+  for (let row of res.rows) {
+    console.log(JSON.stringify(row));
+  }
+  client.end();
 });
