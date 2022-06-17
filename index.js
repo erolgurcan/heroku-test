@@ -42,6 +42,7 @@ app.listen(PORT, () => {
 app.get("/test", (req, res) => {
   try {
     testFunction();
+    res.json("asd");
   } catch (error) {
     console.log(err.message);
   }
