@@ -21,7 +21,8 @@ client.connect();
 
 const testFunction = function () {
   const get = client.query("select * from test;", (err, res) => {
-    let arr = [];
+    let arr  = res.rows;
+
     for (let row of res.rows) {
       console.log("..." + JSON.stringify(row));
       arr.push(JSON.stringify(row));
@@ -44,7 +45,7 @@ app.get("/test", (req, res) => {
     let arr = [];
     arr = testFunction();
     console.log(arr);
-    res.json(arr.rows);
+    res.json(arr);
   } catch (error) {
     console.log(error.message);
   }
