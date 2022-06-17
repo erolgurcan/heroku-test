@@ -2,24 +2,22 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const path = require("path");
-require('dotenv').config()
+require("dotenv").config();
 const PORT = process.env.PORT || 5000;
-const {Pool} = require('pg');
+const { Pool } = require("pg");
 
 const connectStr = process.env.DATABASE_URL;
 
 const pool = new Pool({
-    connectionString: connectStr,
-    ssl: true
+  connectionString: connectStr,
+  ssl: true,
 });
-
 
 try {
   console.log(connectionString);
 } catch (error) {
-  error.message
+  error.message;
 }
-
 
 app.use(cors());
 app.use(express.json());
@@ -31,17 +29,11 @@ app.listen(PORT, () => {
   console.log("Server started on port: " + PORT);
 });
 
-
-app.get("/test", (req, res) => {
-  try {
-    console.log("test");
-    const allTodos =  pool.query("SELECT * FROM test;");
-    res.json(allTodos.rows);
-    console.log(allTodos.rows);
-  } catch (err) {
-    console.error(err.message);
+pool.query("select * from test;", (err, results) => {
+  if (err) {
+    console.log(err);
+    throw err;
   }
+  res.json(results.rows);
+  console.log(res.json);
 });
-
-
-
