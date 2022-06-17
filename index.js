@@ -19,17 +19,15 @@ const client = new Client({
 
 client.connect();
 
-const testFunction = () => {
-  client.query("select * from test;", (err, res) => {
-
+const testFunction =  async function () {
+  const get = await client.query("select * from test;", (err, res) => {
     let arr = [];
     for (let row of res.rows) {
       console.log("..." + JSON.stringify(row));
       arr.push(JSON.stringify(row));
-
-    };    
+    };
+    console.log(arr);    
     client.end();
-    return arr;
   });
 };
 
@@ -43,7 +41,8 @@ app.listen(PORT, () => {
 
 app.get("/test", (req, res) => {
   try {
-    res.json(testFunction());
+    testFunction();
+    res.json("asd");
   } catch (error) {
     console.log(err.message);
   }
