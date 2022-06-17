@@ -37,18 +37,14 @@ app.listen(PORT, () => {
 
 app.get("/test", (req, response) => {
   try {
-    const get = async function () {
-      client.query("select * from test;", (err, res) => {
-        if (err) throw err;
-        for (let row of res.rows) {
-          console.log(JSON.stringify(row));
-        }
-        client.end();
-      });
-
-      response.json(JSON.stringify(row));
-    };
-    get();
+    client.query("select * from test;", (err, res) => {
+      if (err) throw err;
+      for (let row of res.rows) {
+        console.log(JSON.stringify(row));
+        response.json(JSON.stringify(row));
+      }
+      client.end();
+    });
   } catch (error) {
     console.log(err.message);
   }
