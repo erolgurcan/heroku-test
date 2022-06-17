@@ -38,7 +38,6 @@ app.listen(PORT, () => {
 app.get("/test", (req, response) => {
   try {
     client.query("select * from test;", (err, res) => {
-      if (err) throw err;
       for (let row of res.rows) {
         console.log(JSON.stringify(row));
         response.json(JSON.stringify(row));
