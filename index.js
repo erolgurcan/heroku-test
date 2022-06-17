@@ -20,13 +20,14 @@ const client = new Client({
 client.connect();
 
 const testFunction = () => {
-
   client.query("select * from test;", (err, res) => {
     if (err) throw err;
-    for (let row of res.rows) {
-      
-      console.log("..." + JSON.stringify(row));
-    }
+    return JSON.stringify(row);
+
+    // for (let row of res.rows) {
+    //   console.log("..." + JSON.stringify(row));
+    // }
+
     client.end();
   });
 };
@@ -41,9 +42,8 @@ app.listen(PORT, () => {
 
 app.get("/test", (req, res) => {
   try {
-    testFunction();
-    res.json("asd");
+    res.json(testFunction());
   } catch (error) {
     console.log(err.message);
   }
-})
+});
