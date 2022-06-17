@@ -13,7 +13,13 @@ const pool = new Pool({
     ssl: false
 });
 
-console.log(connectionString);
+
+try {
+  console.log(connectionString);
+} catch (error) {
+  error.message
+}
+
 
 app.use(cors());
 app.use(express.json());
