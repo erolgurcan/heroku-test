@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-// const Pool = require("pg").Pool;
+const Pool = require("pg").Pool;
 const path = require("path");
 require('dotenv').config()
 
