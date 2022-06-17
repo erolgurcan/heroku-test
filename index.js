@@ -29,16 +29,3 @@ app.listen(PORT, () => {
   console.log("Server started on port: " + PORT);
 });
 
-const test = (req, res) => {
-  process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-  console.log("test function");
-  pool.query("select * from test", (err, results) => {
-    if (err) {
-      console.log(err);
-      throw err;
-    }
-    res.json(results.rows);
-  });
-};
-
-test();
