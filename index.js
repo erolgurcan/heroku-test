@@ -29,11 +29,14 @@ app.listen(PORT, () => {
   console.log("Server started on port: " + PORT);
 });
 
-pool.query("select * from test;", (err, results) => {
-  if (err) {
-    console.log(err);
-    throw err;
-  }
-  res.json(results.rows);
-  console.log(res.json);
-});
+exports.dbAction = function (req, res) {
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
+  pool.query("select * from exampleTable", (err, results) => {
+    if (err) {
+      console.log(err);
+      throw err;
+    }
+    res.json(results.rows);
+  });
+};
