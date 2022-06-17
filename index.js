@@ -19,14 +19,21 @@ const client = new Client({
 
 client.connect();
 
-client.query("select * from test;", (err, res) => {
-  if (err) throw err;
-  for (let row of res.rows) {
-    
-    console.log("..." + JSON.stringify(row));
-  }
-  client.end();
-});
+testFunction();
+
+const testFunction = () => {
+
+  client.query("select * from test;", (err, res) => {
+    if (err) throw err;
+    for (let row of res.rows) {
+      
+      console.log("..." + JSON.stringify(row));
+    }
+    client.end();
+  });
+}
+
+
 
 app.use(cors());
 app.use(express.json());
@@ -38,13 +45,7 @@ app.listen(PORT, () => {
 
 app.get("/test", (req, res) => {
   try {
-    const get = async function () {
-      const allTodos = await client.query(
-        "SELECT * FROM test"
-      );
-      res.json(allTodos.rows);
-    };
-    get();
+    testFunction();
   } catch (error) {
     console.log(err.message);
   }
