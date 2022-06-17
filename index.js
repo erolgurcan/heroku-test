@@ -26,8 +26,7 @@ const testFunction = function () {
       console.log("..." + JSON.stringify(row));
       arr.push(JSON.stringify(row));
     };
-    console.log(arr);    
-    client.end();
+    console.log(arr);
   });
 };
 
