@@ -16,7 +16,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "npx nodemon index.js ",
+    "start": " npm install -i npx nodemon index.js ",
+    "dev": "concurrently \"npm install -i\" \"npm run server\" ",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
