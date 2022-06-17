@@ -21,12 +21,13 @@ client.connect();
 
 const testFunction = () => {
   client.query("select * from test;", (err, res) => {
-    if (err) throw err;
+
     let arr = [];
-    arr = JSON.stringify(res);
-    // for (let row of res.rows) {
-    //   console.log("..." + JSON.stringify(row));
-    // }
+    for (let row of res.rows) {
+      console.log("..." + JSON.stringify(row));
+      arr.push(JSON.stringify(row));
+
+    };    
     client.end();
     return arr;
   });
