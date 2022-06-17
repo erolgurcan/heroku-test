@@ -16,10 +16,10 @@ console.log(process.env.PG_DATABASE);
 
 const pool = new Pool({
     user: process.env.PG_USER,
-    password: process.env.PG_PASSWORD,
-    host: process.env.PG_HOST,
-    port: process.env.PG_PORT,
-    database: process.env.PG_DATABASE
+    // password: process.env.PG_PASSWORD,
+    // host: process.env.PG_HOST,
+    // port: process.env.PG_PORT,
+    // database: process.env.PG_DATABASE
   });
 
 // console.log(devConfig);
