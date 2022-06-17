@@ -19,18 +19,18 @@ const client = new Client({
 
 client.connect();
 
-const testFunction = function () {
-  const get = client.query("select * from test;", (err, res) => {
-    let arr  = res.rows;
+// const testFunction = function () {
+//   client.query("select * from test;", (err, res) => {
+//     let arr = res.rows;
 
-    for (let row of res.rows) {
-      console.log("..." + JSON.stringify(row));
-      arr.push(JSON.stringify(row));
-    }
-    console.log(arr);
-    return arr;
-  });
-};
+//     for (let row of res.rows) {
+//       console.log("..." + JSON.stringify(row));
+//       arr.push(JSON.stringify(row));
+//     }
+//     console.log(arr);
+//     return arr;
+//   });
+// };
 
 app.use(cors());
 app.use(express.json());
@@ -42,10 +42,10 @@ app.listen(PORT, () => {
 
 app.get("/test", (req, res) => {
   try {
-    let arr = [];
-    arr = testFunction();
-    console.log(arr);
-    res.json(arr);
+    client.query("select * from test;", (err, response) => {
+      res.json(response);
+    });
+    console.log(response);
   } catch (error) {
     console.log(error.message);
   }
