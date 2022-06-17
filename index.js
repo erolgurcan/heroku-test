@@ -10,8 +10,10 @@ const connectStr = process.env.DATABASE_URL;
 
 const pool = new Pool({
     connectionString: connectStr,
-    ssl: true
+    ssl: false
 });
+
+console.log(connectionString);
 
 app.use(cors());
 app.use(express.json());
