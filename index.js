@@ -25,7 +25,7 @@ const testFunction = function () {
     for (let row of res.rows) {
       console.log("..." + JSON.stringify(row));
       arr.push(JSON.stringify(row));
-    };
+    }
     console.log(arr);
     return arr;
   });
@@ -43,7 +43,8 @@ app.get("/test", (req, res) => {
   try {
     let arr = [];
     arr = testFunction();
-    res.json(arr);
+    console.log(arr);
+    res(arr);
   } catch (error) {
     console.log(err.message);
   }
