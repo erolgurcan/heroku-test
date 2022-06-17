@@ -14,15 +14,21 @@ app.use(express.static(path.join(__dirname, "build")));
 
 console.log(process.env.PG_DATABASE);
 
-const pool = new Pool({
-    user: process.env.PG_USER,
-    // password: process.env.PG_PASSWORD,
-    // host: process.env.PG_HOST,
-    // port: process.env.PG_PORT,
-    // database: process.env.PG_DATABASE
-  });
+// const pool = new Pool({
+//     user: process.env.PG_USER,
+//     // password: process.env.PG_PASSWORD,
+//     // host: process.env.PG_HOST,
+//     // port: process.env.PG_PORT,
+//     // database: process.env.PG_DATABASE
+//   });
 
-// console.log(devConfig);
+// // console.log(devConfig);
+
+const devConfig = `postgresql://${process.env.PG_USER}:${process.env.PG_PASSWORD}@${process.env.PG_HOST}:${process.env.PG_PORT}/${process.env.PG_DATABASE}`;
+
+const pool = new Pool({
+ devConfig,
+});
 
 app.get("/test", async (req, res) => {
     console.log("test");
