@@ -10,7 +10,7 @@ const connectStr = process.env.DATABASE_URL;
 
 const pool = new Pool({
     connectionString: connectStr,
-    ssl: false
+    ssl: true
 });
 
 
