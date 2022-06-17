@@ -19,8 +19,6 @@ const client = new Client({
 
 client.connect();
 
-testFunction();
-
 const testFunction = () => {
 
   client.query("select * from test;", (err, res) => {
@@ -31,9 +29,7 @@ const testFunction = () => {
     }
     client.end();
   });
-}
-
-
+};
 
 app.use(cors());
 app.use(express.json());
