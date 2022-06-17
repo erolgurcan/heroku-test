@@ -30,30 +30,39 @@ console.log(process.env.PG_DATABASE);
 //  devConfig,
 // });
 
-app.get("/test", async (req, res) => {
-    console.log("test");
-  try {
-
-    client.query('SELECT * FROM test;', (err, res) => {
-      if (err) throw err;
-      for (let row of res.rows) {
-        res.json(JSON.stringify(row));
-        console.log(JSON.stringify(row));
-      }
-      client.end();
-    });
+// app.get("/test", async (req, res) => {
+//     console.log("test");
+//   try {
+//     client.query('SELECT * FROM test;', (err, res) => {
+//       if (err) throw err;
+//       for (let row of res.rows) {
+//         res.json(JSON.stringify(row));
+//         console.log(JSON.stringify(row));
+//       }
+//       client.end();
+//     });
     
-    // const test = await pool.query("SELECT * FROM test");
-    // res.json(test.rows);
-  } catch (err) {
-    console.log(err.message);
-  }
-});
+//     // const test = await pool.query("SELECT * FROM test");
+//     // res.json(test.rows);
+//   } catch (err) {
+//     console.log(err.message);
+//   }
+// });
 
 app.listen(PORT, () => {
   console.log("Server started on port: " + PORT);
 });
 
+const isProduction = process.env.NODE_ENV === "production";
+
+const pool = new Pool({
+  connectionString: isProduction ? process.env.DATABASE_URL : connectionString,
+  ssl: {
+      rejectUnauthorized: false,
+  },
+})
+
+console.log(process.NODE_ENV);
 
 const { Client } = require('pg');
 
@@ -62,6 +71,14 @@ const client = new Client({
   ssl: {
     rejectUnauthorized: false
   }
+});
+
+client.query('SELECT * FROM test', (err, res) => {
+  if (err) throw err;
+  for (let row of res.rows) {
+    console.log(JSON.stringify(row));
+  }
+  client.end();
 });
 
 client.connect();
