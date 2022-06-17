@@ -44,8 +44,8 @@ app.get("/test", (req, res) => {
     let arr = [];
     arr = testFunction();
     console.log(arr);
-    res(arr);
+    res.send(arr);
   } catch (error) {
-    console.log(err.message);
+    console.log(error.message);
   }
 });
