@@ -29,10 +29,10 @@ app.listen(PORT, () => {
   console.log("Server started on port: " + PORT);
 });
 
-exports.dbAction = function (req, res) {
+const test = (req, res) => {
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-
-  pool.query("select * from exampleTable", (err, results) => {
+  console.log("test function");
+  pool.query("select * from test", (err, results) => {
     if (err) {
       console.log(err);
       throw err;
@@ -40,3 +40,5 @@ exports.dbAction = function (req, res) {
     res.json(results.rows);
   });
 };
+
+test();
