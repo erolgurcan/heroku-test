@@ -13,7 +13,7 @@ const pool = new Pool({
 });
 
 try {
-  console.log(connectionString);
+  console.log(pool);
 } catch (error) {
   error.message;
 }
@@ -22,7 +22,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "build")));
 
-console.log(process.env);
 
 app.listen(PORT, () => {
   console.log("Server started on port: " + PORT);
