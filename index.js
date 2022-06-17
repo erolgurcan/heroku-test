@@ -30,15 +30,25 @@ console.log(process.env.PG_DATABASE);
 //  devConfig,
 // });
 
-// app.get("/test", async (req, res) => {
-//     console.log("test");
-//   try {
-//     const test = await pool.query("SELECT * FROM test");
-//     res.json(test.rows);
-//   } catch (err) {
-//     console.log(err.message);
-//   }
-// });
+app.get("/test", async (req, res) => {
+    console.log("test");
+  try {
+
+    client.query('SELECT * FROM test;', (err, res) => {
+      if (err) throw err;
+      for (let row of res.rows) {
+        res.json(JSON.stringify(row));
+        console.log(JSON.stringify(row));
+      }
+      client.end();
+    });
+    
+    // const test = await pool.query("SELECT * FROM test");
+    // res.json(test.rows);
+  } catch (err) {
+    console.log(err.message);
+  }
+});
 
 app.listen(PORT, () => {
   console.log("Server started on port: " + PORT);
@@ -56,10 +66,4 @@ const client = new Client({
 
 client.connect();
 
-client.query('SELECT * FROM test;', (err, res) => {
-  if (err) throw err;
-  for (let row of res.rows) {
-    console.log(JSON.stringify(row));
-  }
-  client.end();
-});
+
